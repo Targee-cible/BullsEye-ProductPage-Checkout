@@ -58,7 +58,7 @@ const App = () => {
   }, [storeId]);
 
   useEffect(() => {
-    if(zipCode !== 0) {
+    if (zipCode !== 0) {
       helper.getLocationZipInfo(zipCode)
         .then((locations) => {
           setStoreId(locations.data.storeId);

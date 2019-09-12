@@ -1,5 +1,7 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const db = require('../db/index.js');
+const location = require('../models/locations.js');
 
 const app = express();
 const port = process.env.PORT || 3002;
@@ -63,5 +65,59 @@ app.get('/api/checkout/locationZip/:zipCode', (req, res) => {
       res.status(500).send(err);
     });
 });
+
+app.delete('/api/checkout/location/:storeId', (req, res) => {
+  const { storeId } = req.params;
+  db.deleteProduct(storeId)
+    .then((message) => {
+      res.status(200).send(message);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+app.delete('/api/checkout/product/:productId', (req, res) => {
+  const { productId } = req.params;
+  db.deleteStore(productId)
+    .then((message) => {
+      res.status(200).send(message);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
+app.post('/api/checkout/location/', (req, res) => {
+  // eslint-disable-next-line object-curly-newline
+  db.newStore(req.body)
+    .then((message) => {
+      res.status(200).send(message);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
+app.post('/api/checkout/product/', (req, res) => {
+  db.newProduct(req.body)
+    .then((message) => {
+      res.status(200).send(message);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
+app.patch('/api/checkout/product/:productId', (req, res) => {
+  const { productId } = req.params;
+  console.log(req.body);
+  db.updateProduct(productId, req.body)
+    .then((message) => {
+      res.status(200).send(message);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+})
 
 module.exports = app;

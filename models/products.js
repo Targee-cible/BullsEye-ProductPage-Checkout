@@ -18,4 +18,5 @@ const productSchema = db.Schema({
 
 const Products = db.model('products', productSchema);
 
-module.exports = Products;
+module.exports.products = Products;
+module.exports.productSchema = productSchema;
