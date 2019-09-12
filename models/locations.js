@@ -10,4 +10,5 @@ const locationSchema = db.Schema({
 
 const Locations = db.model('locations', locationSchema);
 
-module.exports = Locations;
+module.exports.locations = Locations;
+module.exports.locationSchema = locationSchema;

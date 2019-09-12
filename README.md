@@ -9,6 +9,114 @@
 >  - In Store Pick Up Section
 >  - Delivery Section
 
+## CRUD API Examples
+GET Store based on ID
+http://localhost:3002/api/checkout/location/1
+
+Response:
+{
+    "_id": "5d785944adab6509e69f4fba",
+    "storeId": 1,
+    "streetAddress": "39802 Heidenreich Shore",
+    "city": "Darionland",
+    "state": "OR",
+    "zipCode": 4337,
+    "__v": 0
+}
+
+GET product based on ID
+
+Response:
+{
+    "size": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+    ],
+    "_id": "5d785944adab6509e69f4f56",
+    "productId": 1,
+    "name": "Refined Wooden Sausages",
+    "price": 2520,
+    "color": [
+        {
+            "color": "Blue"
+        },
+        {
+            "color": "Purple"
+        },
+        {
+            "color": "Red"
+        },
+        {
+            "color": "Green"
+        },
+        {
+            "color": "Orange"
+        },
+        {
+            "color": "Black"
+        }
+    ],
+    "reviews": [
+        {
+            "_id": "5d785944adab6509e69f5009",
+            "rating": 1
+        },
+        {
+            "_id": "5d785944adab6509e69f500a",
+            "rating": 3
+        },
+        {
+            "_id": "5d785944adab6509e69f500b",
+            "rating": 5
+        },
+        {
+            "_id": "5d785944adab6509e69f500c",
+            "rating": 3
+        }
+    ],
+    "__v": 1
+}
+
+GET Location based on Zip Code
+Reponse:
+{
+    "_id": "5d785944adab6509e69f4fba",
+    "storeId": 1,
+    "streetAddress": "39802 Heidenreich Shore",
+    "city": "Darionland",
+    "state": "OR",
+    "zipCode": 4337,
+    "__v": 0
+}
+
+POST new store location
+http://localhost:3002/api/checkout/location/
+Response:
+store post working
+
+DELETE Store based on ID
+http://localhost:3002/api/checkout/location/1
+Response:
+store deleted
+
+DELETE Product based on ID
+http://localhost:3002/api/checkout/product/1
+Response:
+product deleted
+
+POST Product
+http://localhost:3002/api/checkout/product/
+Response:
+product post working
+
+PUT Product
+http://localhost:3002/api/checkout/product/1
+Response:
+product updated
+
 
 ## Related Projects
 
