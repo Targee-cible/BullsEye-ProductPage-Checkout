@@ -10,10 +10,10 @@
 >  - Delivery Section
 
 ## CRUD API Examples
-GET Store based on ID
-http://localhost:3002/api/checkout/location/1
+> GET Store based on ID
+> http://localhost:3002/api/checkout/location/1
 
-Response:
+> Response:
 {
     "_id": "5d785944adab6509e69f4fba",
     "storeId": 1,
@@ -24,9 +24,9 @@ Response:
     "__v": 0
 }
 
-GET product based on ID
+> GET product based on ID
 
-Response:
+> Response:
 {
     "size": [
         "S",
