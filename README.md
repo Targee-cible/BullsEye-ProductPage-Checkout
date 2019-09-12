@@ -10,8 +10,8 @@
 >  - Delivery Section
 
 ## CRUD API Examples
-> GET Store based on ID
-> http://localhost:3002/api/checkout/location/1
+ GET Store based on ID
+ http://localhost:3002/api/checkout/location/1
 
 > Response:
 {
@@ -22,9 +22,9 @@
     "state": "OR",
     "zipCode": 4337,
     "__v": 0
-}
+> }
 
-> GET product based on ID
+ GET product based on ID
 
 > Response:
 {
@@ -78,10 +78,10 @@
         }
     ],
     "__v": 1
-}
+> }
 
 GET Location based on Zip Code
-Reponse:
+> Reponse:
 {
     "_id": "5d785944adab6509e69f4fba",
     "storeId": 1,
@@ -90,32 +90,32 @@ Reponse:
     "state": "OR",
     "zipCode": 4337,
     "__v": 0
-}
+> }
 
 POST new store location
 http://localhost:3002/api/checkout/location/
-Response:
-store post working
+> Response:
+> store post working
 
 DELETE Store based on ID
 http://localhost:3002/api/checkout/location/1
-Response:
-store deleted
+> Response:
+> store deleted
 
 DELETE Product based on ID
 http://localhost:3002/api/checkout/product/1
-Response:
-product deleted
+> Response:
+> product deleted
 
 POST Product
 http://localhost:3002/api/checkout/product/
-Response:
-product post working
+> Response:
+> product post working
 
 PUT Product
 http://localhost:3002/api/checkout/product/1
-Response:
-product updated
+> Response:
+> product updated
 
 
 ## Related Projects
