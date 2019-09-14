@@ -26,18 +26,18 @@ const getQuantity = (productId, color, size, storeId) => new Promise((resolve, r
 
 const getLocation = (storeId) => new Promise((resolve, reject) => {
   db.promise.query(`select * from stores where id= ${storeId}`)
-  .then((store) => {
-    resolve(store.length ? store[0] : 'Product does not exist');
-  })
-  .catch((err) => {
-    reject(err);
-  });
+    .then((store) => {
+      resolve(store.length ? store[0] : 'Store does not exist');
+    })
+    .catch((err) => {
+      reject(err);
+    });
 });
 
 const getLocationZip = (zipCode) => new Promise((resolve, reject) => {
-  Locations.find({ zipCode })
-    .then((result) => {
-      resolve(result.length ? result[0] : 'Store Does Not Exist');
+  db.promise.query(`select * from stores where zipCode= ${zipCode}`)
+    .then((store) => {
+      resolve(store.length ? store[0] : 'no store at this location');
     })
     .catch((err) => {
       reject(err);
