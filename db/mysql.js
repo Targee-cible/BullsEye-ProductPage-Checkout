@@ -29,4 +29,5 @@ class Database {
   }
 }
 
-module.exports = new Database(connection);
+module.exports.connect = connection;
+module.exports.promise = new Database(connection);

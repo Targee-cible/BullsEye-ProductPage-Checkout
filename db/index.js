@@ -4,22 +4,14 @@ const db = require('./mysql.js');
   Function Definitions
 */
 const getProduct = (productId) => new Promise((resolve, reject) => {
-  // const queryString = `select * from product where id= ${productId}`;
-
-  db.query(`select * from product where id= ${productId}`)
+  db.promise.query(`select * from product where id= ${productId}`)
     .then((product) => {
-      resolve(product);
+      resolve(product.length ? product[0] : 'Product does not exist');
     })
     .catch((err) => {
       reject(err);
     });
 });
-// const getProduct = function(productId) {
-//     db.query(`select * from product where id= ${productId}`, function (err, result, fields) {
-//       if (err) throw err;
-//       console.log(result);
-//     });
-// };
 
 const getQuantity = (productId, color, size, storeId) => new Promise((resolve, reject) => {
   // eslint-disable-next-line object-curly-newline

@@ -14,7 +14,7 @@ const sizes = ['S', 'M', 'L', 'XL', '2XL'];
 //  Create Color Array with object {name, url}
 //  URL will have default value until i am able to upload my own swatches
 const colors = ['Red', 'Blue', 'Green', 'Orange', 'Black', 'Purple'];
-const numReviews = function() {
+const numReviews = function () {
   return Math.round(Math.random() * 40);
 }
 
@@ -47,7 +47,7 @@ const seedData = function () {
         totalStars
       ]);
     }
-    db.query(sql, [values], function (err, result) {
+    db.connect.query(sql, [values], function (err, result) {
       if (err) throw err;
       console.log(`Number of records inserted: ${result.affectedRows} ${currentSize}`);
       currentSize += result.affectedRows;
@@ -62,29 +62,30 @@ const seedData = function () {
   };
 
   seedDataHelper();
+  const sqlStore = "INSERT INTO stores (streetAddress, city, zipCode) VALUES ?";
+  const storeData = [
+    ['123 main st', 'city1', 95043],
+    ['23456 fjdfj', 'sdd', 48909]
+  ];
+  db.connect.query(sqlStore, [storeData], function (err, result) {
+    if (err) throw err;
+    console.log("Number of records inserted: " + result.affectedRows);
+  });
+
+  const sqlInventory = "INSERT INTO inventory (store_Id, product_Id, quantity, size, color) VALUES ?";
+  const storeInventory = [
+    [1, 1, 55, 'L', 'Blue'],
+    [2, 2, 34, 'S', 'Orange']
+  ];
+  db.connect.query(sqlInventory, [storeInventory], function (err, result) {
+    if (err) throw err;
+    console.log("Number of records inserted: " + result.affectedRows);
+  });
 };
 
 seedData();
 
-const sqlStore = "INSERT INTO stores (streetAddress, city, zipCode) VALUES ?";
-const storeData = [
-  ['123 main st', 'city1', 95043],
-  ['23456 fjdfj', 'sdd', 48909]
-];
-db.query(sqlStore, [storeData], function (err, result) {
-  if (err) throw err;
-  console.log("Number of records inserted: " + result.affectedRows);
-});
 
-const sqlInventory = "INSERT INTO inventory (store_Id, product_Id, quantity, size, color) VALUES ?";
-const storeInventory = [
-  [1, 1, 55, 'L', 'Blue'],
-  [2, 2, 34, 'S', 'Orange']
-];
-db.query(sqlInventory, [storeInventory], function (err, result) {
-  if (err) throw err;
-  console.log("Number of records inserted: " + result.affectedRows);
-});
 
 // /*
 //   Create Reviews
