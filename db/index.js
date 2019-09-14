@@ -86,7 +86,6 @@ const newProduct = (product) => new Promise((resolve, reject) => {
 });
 
 const updateProduct = (prodId, productData) => new Promise((resolve, reject) => {
-  console.log(productData);
   Products.products.find({ productId: prodId })
     .then((products) => {
 
