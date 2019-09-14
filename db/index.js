@@ -44,15 +44,19 @@ const getLocationZip = (zipCode) => new Promise((resolve, reject) => {
     });
 });
 
-const deleteStore = (store) => new Promise((resolve, reject) => {
-  Locations.locations.deleteOne({ storeId: store })
+const deleteStore = (storeId) => new Promise((resolve, reject) => {
+  db.promise.query(`delete from inventory where store_Id= ${storeId}`)
+    .then( () => {
+      return db.promise.query(`delete from stores where id= ${storeId}`)
+    })
     .then(() => {
-      resolve('store deleted');
+      resolve(`store ${storeId} has been deleted`);
     })
     .catch((err) => {
       reject(err);
     });
 });
+
 const newStore = (store) => new Promise((resolve, reject) => {
   Locations.locations.create(store)
     .then(() => {

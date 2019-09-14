@@ -67,7 +67,7 @@ app.get('/api/checkout/locationZip/:zipCode', (req, res) => {
 
 app.delete('/api/checkout/location/:storeId', (req, res) => {
   const { storeId } = req.params;
-  db.deleteProduct(storeId)
+  db.deleteStore(storeId)
     .then((message) => {
       res.status(200).send(message);
     })
@@ -77,7 +77,7 @@ app.delete('/api/checkout/location/:storeId', (req, res) => {
 });
 app.delete('/api/checkout/product/:productId', (req, res) => {
   const { productId } = req.params;
-  db.deleteStore(productId)
+  db.deleteProduct(productId)
     .then((message) => {
       res.status(200).send(message);
     })
