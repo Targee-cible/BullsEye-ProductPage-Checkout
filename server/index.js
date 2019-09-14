@@ -20,7 +20,6 @@ app.listen(port, () => console.log(`Server started on Port ${port}`));
 
 app.get('/api/checkout/product/:productId', (req, res) => {
   const { productId } = req.params;
-
   db.getProduct(productId)
     .then((product) => {
       res.status(200).json(product);
