@@ -65,25 +65,26 @@ const seedData = function () {
 };
 
 seedData();
-// const sqlStore = "INSERT INTO stores (streetAddress, city, zipCode) VALUES ?";
-// const storeData = [
-//   ['123 main st', 'city1', 95043],
-//   ['23456 fjdfj', 'sdd', 48909]
-// ]
-// db.query(sqlStore, [storeData], function (err, result) {
-//   if (err) throw err;
-//   console.log("Number of records inserted: " + result.affectedRows);
-// });
 
-// const sqlInventory = "INSERT INTO inventory (store_Id, product_Id, quantity, size, color) VALUES ?";
-// const storeInventory = [
-//   [1, 1, 55, 'L', 'B'],
-//   [2, 2, 34, 'S', 'O']
-// ]
-// db.query(sqlInventory, [storeInventory], function (err, result) {
-//   if (err) throw err;
-//   console.log("Number of records inserted: " + result.affectedRows);
-// });
+const sqlStore = "INSERT INTO stores (streetAddress, city, zipCode) VALUES ?";
+const storeData = [
+  ['123 main st', 'city1', 95043],
+  ['23456 fjdfj', 'sdd', 48909]
+];
+db.query(sqlStore, [storeData], function (err, result) {
+  if (err) throw err;
+  console.log("Number of records inserted: " + result.affectedRows);
+});
+
+const sqlInventory = "INSERT INTO inventory (store_Id, product_Id, quantity, size, color) VALUES ?";
+const storeInventory = [
+  [1, 1, 55, 'L', 'B'],
+  [2, 2, 34, 'S', 'O']
+];
+db.query(sqlInventory, [storeInventory], function (err, result) {
+  if (err) throw err;
+  console.log("Number of records inserted: " + result.affectedRows);
+});
 
 // /*
 //   Create Reviews
