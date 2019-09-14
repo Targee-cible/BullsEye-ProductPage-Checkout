@@ -78,8 +78,8 @@ db.query(sqlStore, [storeData], function (err, result) {
 
 const sqlInventory = "INSERT INTO inventory (store_Id, product_Id, quantity, size, color) VALUES ?";
 const storeInventory = [
-  [1, 1, 55, 'L', 'B'],
-  [2, 2, 34, 'S', 'O']
+  [1, 1, 55, 'L', 'Blue'],
+  [2, 2, 34, 'S', 'Orange']
 ];
 db.query(sqlInventory, [storeInventory], function (err, result) {
   if (err) throw err;
