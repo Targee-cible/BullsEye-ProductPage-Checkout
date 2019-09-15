@@ -80,9 +80,13 @@ const deleteProduct = (productId) => new Promise((resolve, reject) => {
     });
 });
 const newProduct = (product) => new Promise((resolve, reject) => {
-  Products.products.create(product)
+  const storeData = [
+    [product.name, product.price, product.size, product.color, product.numOfRatings, product.totalNumStars]
+  ];
+  const sqlStore = 'INSERT INTO product (name, price, size, color, numOfRatings, totalNumStars) VALUES ?';
+  db.promise.query(sqlStore, [storeData])
     .then(() => {
-      resolve('product added');
+      resolve(`product ${product} has been added`);
     })
     .catch((err) => {
       reject(err);
