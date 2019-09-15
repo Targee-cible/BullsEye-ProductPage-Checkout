@@ -68,10 +68,12 @@ const newStore = (store) => new Promise((resolve, reject) => {
       reject(err);
     });
 });
-const deleteProduct = (product) => new Promise((resolve, reject) => {
-  Products.products.deleteOne({ productId: product })
+const deleteProduct = (productId) => new Promise((resolve, reject) => {
+  console.log(productId);
+  db.promise.query(`delete from inventory where product_Id= ${productId}`)
+    .then(() => db.promise.query(`delete from product where id= ${productId}`))
     .then(() => {
-      resolve('product deleted');
+      resolve(`store ${sId} has been deleted`);
     })
     .catch((err) => {
       reject(err);
