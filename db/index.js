@@ -46,9 +46,7 @@ const getLocationZip = (zipCode) => new Promise((resolve, reject) => {
 
 const deleteStore = (storeId) => new Promise((resolve, reject) => {
   db.promise.query(`delete from inventory where store_Id= ${storeId}`)
-    .then( () => {
-      return db.promise.query(`delete from stores where id= ${storeId}`)
-    })
+    .then(() => db.promise.query(`delete from stores where id= ${storeId}`))
     .then(() => {
       resolve(`store ${storeId} has been deleted`);
     })
@@ -58,14 +56,17 @@ const deleteStore = (storeId) => new Promise((resolve, reject) => {
 });
 
 const newStore = (store) => new Promise((resolve, reject) => {
-  Locations.locations.create(store)
+  const storeData = [
+    [store.streetAddress, store.city, store.zipCode]
+  ];
+  const sqlStore = 'INSERT INTO stores (streetAddress, city, zipCode) VALUES ?';
+  db.promise.query(sqlStore, [storeData])
     .then(() => {
-      resolve('store added');
+      resolve(`store ${store} has been added`);
     })
     .catch((err) => {
       reject(err);
     });
-
 });
 const deleteProduct = (product) => new Promise((resolve, reject) => {
   Products.products.deleteOne({ productId: product })

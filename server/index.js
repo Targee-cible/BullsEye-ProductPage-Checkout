@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
-const location = require('../models/locations.js');
 
 const app = express();
 const port = process.env.PORT || 3002;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 let allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', "*");
