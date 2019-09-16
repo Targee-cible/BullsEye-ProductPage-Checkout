@@ -111,7 +111,6 @@ app.post('/api/checkout/product/', (req, res) => {
 
 app.patch('/api/checkout/product/:productId', (req, res) => {
   const { productId } = req.params;
-  console.log(req.body);
   db.updateProduct(productId, req.body)
     .then((message) => {
       res.status(200).send(message);

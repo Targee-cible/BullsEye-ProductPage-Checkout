@@ -95,26 +95,16 @@ const newProduct = (product) => new Promise((resolve, reject) => {
 });
 
 const updateProduct = (prodId, productData) => new Promise((resolve, reject) => {
-  Products.products.find({ productId: prodId })
-    .then((products) => {
-
-      const product = products[0];
-      // update product properties with productData
-      // eslint-disable-next-line no-restricted-syntax
-      // const keys = Object.keys(productData);
-      // console.log('hellojhjh');
-      // for (let i = 0; i < keys.length; i += 1) {
-      //   product[keys[i]] = productData[keys[i]];
-      // }
-      // for (var key in productData) {
-      //   product[key] = productData[key];
-      // }
-
-
-      product["price"] = productData["price"];
-
-      return product.save();
-    })
+  let queryString = 'update product set ';
+  for (var key in productData) {
+    if (productData.hasOwnProperty(key)) {
+      queryString += `${key} = "${productData[key]}", `;
+    }
+  }
+  let queryMinusComma = queryString.slice(0, -2);
+  queryMinusComma += ` where id= ${prodId}`;
+  console.log(queryMinusComma);
+  db.promise.query(queryMinusComma)
     .then(() => {
       resolve('product updated');
     })
