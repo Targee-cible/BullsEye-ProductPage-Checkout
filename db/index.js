@@ -4,7 +4,7 @@ const db = require('./mysql.js');
   Function Definitions
 */
 const getProduct = (productId) => new Promise((resolve, reject) => {
-  db.promise.query(`select * from product where id= ${productId}`)
+  db.dbconnect.query(`select * from product where id= ${productId}`)
     .then((product) => {
       resolve(product.length ? product[0] : 'Product does not exist');
     })
@@ -15,17 +15,18 @@ const getProduct = (productId) => new Promise((resolve, reject) => {
 
 const getQuantity = (productId, color, size, storeId) => new Promise((resolve, reject) => {
   // eslint-disable-next-line object-curly-newline
-  Inventory.find({ productId, color, size, storeId })
-    .then((result) => {
-      resolve(result.length ? result[0].quantity : 0);
-    })
-    .catch((err) => {
-      reject(err);
-    });
+  // TODO: Implement this
+  // Inventory.find({ productId, color, size, storeId })
+  //   .then((result) => {
+  //     resolve(result.length ? result[0].quantity : 0);
+  //   })
+  //   .catch((err) => {
+  //     reject(err);
+  //   });
 });
 
 const getLocation = (storeId) => new Promise((resolve, reject) => {
-  db.promise.query(`select * from stores where id= ${storeId}`)
+  db.dbconnect.query(`select * from stores where id= ${storeId}`)
     .then((store) => {
       resolve(store.length ? store[0] : 'Store does not exist');
     })
@@ -35,7 +36,7 @@ const getLocation = (storeId) => new Promise((resolve, reject) => {
 });
 
 const getLocationZip = (zipCode) => new Promise((resolve, reject) => {
-  db.promise.query(`select * from stores where zipCode= ${zipCode}`)
+  db.dbconnect.query(`select * from stores where zipCode= ${zipCode}`)
     .then((store) => {
       resolve(store.length ? store[0] : 'no store at this location');
     })
@@ -45,8 +46,8 @@ const getLocationZip = (zipCode) => new Promise((resolve, reject) => {
 });
 
 const deleteStore = (storeId) => new Promise((resolve, reject) => {
-  db.promise.query(`delete from inventory where store_Id= ${storeId}`)
-    .then(() => db.promise.query(`delete from stores where id= ${storeId}`))
+  db.dbconnect.query(`delete from inventory where store_Id= ${storeId}`)
+    .then(() => db.dbconnect.query(`delete from stores where id= ${storeId}`))
     .then(() => {
       resolve(`store ${storeId} has been deleted`);
     })
@@ -60,7 +61,7 @@ const newStore = (store) => new Promise((resolve, reject) => {
     [store.streetAddress, store.city, store.zipCode]
   ];
   const sqlStore = 'INSERT INTO stores (streetAddress, city, zipCode) VALUES ?';
-  db.promise.query(sqlStore, [storeData])
+  db.dbconnect.query(sqlStore, [storeData])
     .then(() => {
       resolve(`store ${store} has been added`);
     })
@@ -70,8 +71,8 @@ const newStore = (store) => new Promise((resolve, reject) => {
 });
 const deleteProduct = (productId) => new Promise((resolve, reject) => {
   console.log(productId);
-  db.promise.query(`delete from inventory where product_Id= ${productId}`)
-    .then(() => db.promise.query(`delete from product where id= ${productId}`))
+  db.dbconnect.query(`delete from inventory where product_Id= ${productId}`)
+    .then(() => db.dbconnect.query(`delete from product where id= ${productId}`))
     .then(() => {
       resolve(`store ${sId} has been deleted`);
     })
@@ -84,7 +85,7 @@ const newProduct = (product) => new Promise((resolve, reject) => {
     [product.name, product.price, product.size, product.color, product.numOfRatings, product.totalNumStars]
   ];
   const sqlStore = 'INSERT INTO product (name, price, size, color, numOfRatings, totalNumStars) VALUES ?';
-  db.promise.query(sqlStore, [storeData])
+  db.dbconnect.query(sqlStore, [storeData])
     .then(() => {
       resolve(`product ${product} has been added`);
     })
@@ -103,8 +104,7 @@ const updateProduct = (prodId, productData) => new Promise((resolve, reject) => 
   }
   let queryMinusComma = queryString.slice(0, -2);
   queryMinusComma += ` where id= ${prodId}`;
-  console.log(queryMinusComma);
-  db.promise.query(queryMinusComma)
+  db.dbconnect.query(queryMinusComma)
     .then(() => {
       resolve('product updated');
     })
