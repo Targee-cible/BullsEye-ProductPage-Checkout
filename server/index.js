@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
-const location = require('../models/locations.js');
 
 const app = express();
 const port = process.env.PORT || 3002;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 let allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', "*");
@@ -20,7 +22,6 @@ app.listen(port, () => console.log(`Server started on Port ${port}`));
 
 app.get('/api/checkout/product/:productId', (req, res) => {
   const { productId } = req.params;
-
   db.getProduct(productId)
     .then((product) => {
       res.status(200).json(product);
@@ -68,7 +69,7 @@ app.get('/api/checkout/locationZip/:zipCode', (req, res) => {
 
 app.delete('/api/checkout/location/:storeId', (req, res) => {
   const { storeId } = req.params;
-  db.deleteProduct(storeId)
+  db.deleteStore(storeId)
     .then((message) => {
       res.status(200).send(message);
     })
@@ -78,7 +79,7 @@ app.delete('/api/checkout/location/:storeId', (req, res) => {
 });
 app.delete('/api/checkout/product/:productId', (req, res) => {
   const { productId } = req.params;
-  db.deleteStore(productId)
+  db.deleteProduct(productId)
     .then((message) => {
       res.status(200).send(message);
     })
@@ -110,7 +111,6 @@ app.post('/api/checkout/product/', (req, res) => {
 
 app.patch('/api/checkout/product/:productId', (req, res) => {
   const { productId } = req.params;
-  console.log(req.body);
   db.updateProduct(productId, req.body)
     .then((message) => {
       res.status(200).send(message);
