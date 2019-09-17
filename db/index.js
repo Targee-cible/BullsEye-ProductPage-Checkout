@@ -74,7 +74,7 @@ const deleteProduct = (productId) => new Promise((resolve, reject) => {
   db.dbconnect.query(`delete from inventory where product_Id= ${productId}`)
     .then(() => db.dbconnect.query(`delete from product where id= ${productId}`))
     .then(() => {
-      resolve(`store ${sId} has been deleted`);
+      resolve(`store ${productId} has been deleted`);
     })
     .catch((err) => {
       reject(err);
