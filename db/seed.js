@@ -10,10 +10,6 @@ const checkout = nano.db.use('sdccheckout');
 // checkout.insert({ type: 'product', name: 'pants', price: 43.25, color: 'Black', numOfRatings: 0, totalNumStars: 0, inventory: 'TBD' }).then((body) => {
 //   console.log(body);
 // });
-
-
-
-
 // "value": {
 //   "type": "product",
 //   "name": "shoes",
@@ -51,7 +47,7 @@ const seedData = function () {
   const seedDataHelper = function () {
     let values = [];
     values = [];
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 10000; i++) {
       const reviews = numReviews();
       const totalStars = (Math.random() * 5) * reviews;
       const newData = {
