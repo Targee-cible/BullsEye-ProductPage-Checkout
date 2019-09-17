@@ -51,22 +51,23 @@ const seedData = function () {
   const seedDataHelper = function () {
     let values = [];
     values = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 1000; i++) {
       const reviews = numReviews();
       const totalStars = (Math.random() * 5) * reviews;
-      values.push({
-        "type": "product",
-        "name": "shoes",
-        "price": "133.45",
-        "size": "L",
-        "color": "Blue",
-        "numOfRatings": "30",
-        "totalNumStars": "150",
-        "inventory": "Fill me in",
-      });
+      const newData = {
+        type: "product",
+        name: faker.commerce.productName(),
+        price: faker.finance.amount(0.01, 50.00, 2),
+        size: randomSize(),
+        color: randomColor(),
+        numOfRatings: reviews,
+        totalNumStars: totalStars,
+        inventory: "Fill me in"
+      };
+      const newDataString = JSON.stringify(newData);
+      values.push(newData);
     }
-
-    // console.log(values);
+    // const stringValues = JSON.stringify(values);
     checkout.bulk({ docs: values }).then((body) => {
       console.log(body);
     });
