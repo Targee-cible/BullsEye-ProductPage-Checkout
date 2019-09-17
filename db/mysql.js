@@ -20,9 +20,9 @@ class Database {
   }
 
   query(sql, args ) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.connection.query(sql, args, (err, rows) => {
-        if (err) {return reject(err); }
+        if (err) { return reject(err); }
         resolve(rows);
       });
     });
@@ -30,4 +30,4 @@ class Database {
 }
 
 module.exports.connect = connection;
-module.exports.promise = new Database(connection);
+module.exports.dbconnect = new Database(connection);
