@@ -1,15 +1,30 @@
-const db = require('mongoose');
+// const NodeCouchDb = require('node-couchdb');
 
-db.connect('mongodb://localhost:27017/ontarget', { useNewUrlParser: true });
+// const couch = new NodeCouchDb({
+//   auth: {
+//       user: 'SeanKier',
+//       pass: 'test1234'
+//   }
+// });
+// couch.listDatabases().then(dbs => console.log(dbs), err => {
+//   // request error occured
+// });
+// const nano = require('nano')('http://localhost:5984');
+// const checkout = nano.db.use('sdccheckout');
 
-db.connection.on('connected', () => {
-  // eslint-disable-next-line no-console
-  console.log('connected to MongoDB');
-});
+// checkout.insert({ type: 'product', name: 'pants', price: 43.25, color: 'Black', numOfRatings: 0, totalNumStars: 0, inventory: 'TBD' }).then((body) => {
+//   console.log(body);
+// });
 
-db.connection.on('error', (err) => {
-  // eslint-disable-next-line no-console
-  console.log('Error occurred: ', err);
-});
 
-module.exports = db;
+
+
+// "value": {
+//   "type": "product",
+//   "name": "shoes",
+//   "price": "133.45",
+//   "size": "L",
+//   "color": "Blue",
+//   "numOfRatings": "30",
+//   "totalNumStars": "150",
+//   "inventory": "Fill me in",
