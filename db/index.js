@@ -21,17 +21,17 @@ const checkout = require('./connection.js');
 // });
 
 const getProduct = (productId) => new Promise((resolve, reject) => {
-  // checkout.get(productId)
+  checkout.get(productId)
   // checkout.view('_design/all_products', 'all', {
   //   product_id: productId
   // })
-  const query = {
-    selector: {
-      product_id: { $eq: productId }
-    },
-    fields: ["product_id"]
-  };
-  checkout.find(query)
+  // const query = {
+  //   selector: {
+  //     product_id: productId
+  //   },
+  //   fields: ["product_id"]
+  // };
+  // checkout.find(query)
     .then((product) => {
       // resolve(product.length ? product[0] : 'Product does not exist');
       resolve(product);
