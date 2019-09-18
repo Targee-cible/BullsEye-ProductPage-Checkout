@@ -17,14 +17,10 @@ const numReviews = function () {
   return Math.round(Math.random() * 40);
 }
 
-const randomSize = function () {
-  const index = Math.round(Math.random() * 4);
-  return sizes[index];
+const randomInventory = function () {
+  return Math.round(Math.random() * 15);
 }
-const randomColor = function () {
-  const index = Math.round(Math.random() * 5);
-  return colors[index];
-}
+
 const seedData = function () {
   const targetSize = 10;
   let currentSize = 0;
@@ -33,28 +29,68 @@ const seedData = function () {
     let values = [];
     for (let i = 0; i < 10; i++) {
       const reviews = numReviews();
-      const totalStars = (Math.random() * 5) * reviews;
+      const totalStars = Math.round((Math.random() * 5) * reviews);
       const newData = {
         type: "product",
         product_id: currentSize + i,
         name: faker.commerce.productName(),
         price: faker.finance.amount(0.01, 50.00, 2),
-        size: randomSize(),
-        color: randomColor(),
+        size: sizes,
+        color: colors,
         numOfRatings: reviews,
         totalNumStars: totalStars,
         inventory: [
-          { store: 2,
-            inventory: [{ size: "M", color: "Blue", amount: 4 },
-                        { size: "L", color: "Blue", amount: 1 }]
+          {
+            store: 1,
+            inventory: [{ size: "M", color: "Blue", amount: randomInventory() },
+                        { size: "S", color: "Blue", amount: randomInventory() },
+                        { size: "XL", color: "Red", amount: randomInventory() },
+                        { size: "L", color: "Red", amount: randomInventory() },
+                        { size: "2XL", color: "Green", amount: randomInventory() },
+                        { size: "L", color: "Green", amount: randomInventory() },
+                        { size: "S", color: "Orange", amount: randomInventory() },
+                        { size: "L", color: "Orange", amount: randomInventory() },
+                        { size: "M", color: "Black", amount: randomInventory() },
+                        { size: "L", color: "Black", amount: randomInventory() },
+                        { size: "XL", color: "Purple", amount: randomInventory() }
+                      ]
           },
+          {
+            store: 2,
+            inventory: [{ size: "L", color: "Blue", amount: randomInventory() },
+                        { size: "S", color: "Blue", amount: randomInventory() },
+                        { size: "M", color: "Red", amount: randomInventory() },
+                        { size: "L", color: "Red", amount: randomInventory() },
+                        { size: "XL", color: "Green", amount: randomInventory() },
+                        { size: "L", color: "Green", amount: randomInventory() },
+                        { size: "S", color: "Orange", amount: randomInventory() },
+                        { size: "L", color: "Orange", amount: randomInventory() },
+                        { size: "2XL", color: "Black", amount: randomInventory() },
+                        { size: "L", color: "Black", amount: randomInventory() },
+                        { size: "XL", color: "Purple", amount: randomInventory() }
+                      ]
+          },
+          {
+            store: 3,
+            inventory: [{ size: "2XL", color: "Blue", amount: randomInventory() },
+                        { size: "M", color: "Blue", amount: randomInventory() },
+                        { size: "XL", color: "Red", amount: randomInventory() },
+                        { size: "L", color: "Red", amount: randomInventory() },
+                        { size: "S", color: "Green", amount: randomInventory() },
+                        { size: "L", color: "Green", amount: randomInventory() },
+                        { size: "XL", color: "Orange", amount: randomInventory() },
+                        { size: "L", color: "Orange", amount: randomInventory() },
+                        { size: "S", color: "Black", amount: randomInventory() },
+                        { size: "S", color: "Black", amount: randomInventory() },
+                        { size: "2XL", color: "Purple", amount: randomInventory() }
+                      ]
+          }
 
         ]
       };
-      const newDataString = JSON.stringify(newData);
+
       values.push(newData);
     }
-    // const stringValues = JSON.stringify(values);
     checkout.bulk({ docs: values }).then(() => {
       console.log(`Number of records inserted: ${10000} ${currentSize}`);
       currentSize += 10000;
@@ -69,7 +105,24 @@ const seedData = function () {
   };
 
   seedDataHelper();
-
+};
+const seedStores = function () {
+  const stores = [];
+  for (let i = 1; i <= 3; i++) {
+    const store = {
+      store_Id: i,
+      type: 'store',
+      streetAddress: faker.address.streetAddress(),
+      city: faker.address.city(),
+      state: faker.address.stateAbbr(),
+      zipCode: faker.address.zipCode('#####'),
+    };
+    stores.push(store);
+  }
+  checkout.bulk({ docs: stores }).then(() => {
+    console.log("stores seeded");
+    seedData();
+  });
 };
 
-seedData();
+seedStores();

@@ -25,17 +25,7 @@ const getProduct = (productId) => new Promise((resolve, reject) => {
   checkout.view('all_products', 'all', {
     'key' : parseInt(productId)
   })
-  // console.log(typeof productId);
-  // const query = {
-  //   selector: {
-  //     product_id: { "$eq": parseInt(productId) }
-  //   },
-  //   use_index: ["_design/all_products", "all"],
-  //   fields: ["product_id"]
-  // };
-  // checkout.find(query)
     .then((product) => {
-      // resolve(product.length ? product[0] : 'Product does not exist');
       resolve(product.rows[0].value);
     })
     .catch((err) => {
