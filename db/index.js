@@ -47,9 +47,13 @@ const getQuantity = (productId, color, size, storeId) => new Promise((resolve, r
 });
 
 const getLocation = (storeId) => new Promise((resolve, reject) => {
-  db.dbconnect.query(`select * from stores where id= ${storeId}`)
+  console.log(storeId);
+  checkout.view('all_stores', 'storeview', {
+    'key': parseInt(storeId)
+  })
     .then((store) => {
-      resolve(store.length ? store[0] : 'Store does not exist');
+
+      resolve(store.rows[0].value);
     })
     .catch((err) => {
       reject(err);
