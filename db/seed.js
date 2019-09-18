@@ -26,13 +26,12 @@ const randomColor = function () {
   return colors[index];
 }
 const seedData = function () {
-  const targetSize = 10000000;
+  const targetSize = 10;
   let currentSize = 0;
 
   const seedDataHelper = function () {
     let values = [];
-    values = [];
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 10; i++) {
       const reviews = numReviews();
       const totalStars = (Math.random() * 5) * reviews;
       const newData = {
@@ -44,7 +43,13 @@ const seedData = function () {
         color: randomColor(),
         numOfRatings: reviews,
         totalNumStars: totalStars,
-        inventory: "Fill me in"
+        inventory: [
+          { store: 2,
+            inventory: [{ size: "M", color: "Blue", amount: 4 },
+                        { size: "L", color: "Blue", amount: 1 }]
+          },
+
+        ]
       };
       const newDataString = JSON.stringify(newData);
       values.push(newData);
@@ -61,18 +66,6 @@ const seedData = function () {
         console.log("Done!!!!");
       }
     });
-    // db.connect.query(sql, [values], function (err, result) {
-    //   if (err) throw err;
-    //   console.log(`Number of records inserted: ${result.affectedRows} ${currentSize}`);
-    //   currentSize += result.affectedRows;
-    //   if (currentSize < targetSize) {
-    //     values = [];
-    //     console.log(`Calling again: ${currentSize}`);
-    //     seedDataHelper();
-    //   } else {
-    //     console.log("Done!!!!");
-    //   }
-    // });
   };
 
   seedDataHelper();

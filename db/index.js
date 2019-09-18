@@ -21,20 +21,22 @@ const checkout = require('./connection.js');
 // });
 
 const getProduct = (productId) => new Promise((resolve, reject) => {
-  checkout.get(productId)
-  // checkout.view('_design/all_products', 'all', {
-  //   product_id: productId
-  // })
+  // checkout.get(productId)
+  checkout.view('all_products', 'all', {
+    'key' : parseInt(productId)
+  })
+  // console.log(typeof productId);
   // const query = {
   //   selector: {
-  //     product_id: productId
+  //     product_id: { "$eq": parseInt(productId) }
   //   },
+  //   use_index: ["_design/all_products", "all"],
   //   fields: ["product_id"]
   // };
   // checkout.find(query)
     .then((product) => {
       // resolve(product.length ? product[0] : 'Product does not exist');
-      resolve(product);
+      resolve(product.rows[0].value);
     })
     .catch((err) => {
       reject(err);

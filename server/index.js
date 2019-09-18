@@ -25,6 +25,8 @@ app.get('/api/checkout/product/:productId', (req, res) => {
   const { productId } = req.params;
   db.getProduct(productId)
     .then((product) => {
+      console.log(product);
+      // res.status(200).send(JSON.stringify(product));
       res.status(200).json(product);
     })
     .catch((err) => {
