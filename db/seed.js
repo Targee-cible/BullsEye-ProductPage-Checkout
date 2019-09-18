@@ -4,23 +4,8 @@
 /* eslint-disable func-names */
 /* eslint-disable comma-dangle */
 /* eslint-disable quotes */
-const nano = require('nano')('http://localhost:5984');
-const checkout = nano.db.use('sdccheckout');
-
-// checkout.insert({ type: 'product', name: 'pants', price: 43.25, color: 'Black', numOfRatings: 0, totalNumStars: 0, inventory: 'TBD' }).then((body) => {
-//   console.log(body);
-// });
-// "value": {
-//   "type": "product",
-//   "name": "shoes",
-//   "price": "133.45",
-//   "size": "L",
-//   "color": "Blue",
-//   "numOfRatings": "30",
-//   "totalNumStars": "150",
-//   "inventory": "Fill me in",
-
 const faker = require('faker');
+const checkout = require('./connection.js');
 
 //  Create Size Array
 const sizes = ['S', 'M', 'L', 'XL', '2XL'];
@@ -52,7 +37,7 @@ const seedData = function () {
       const totalStars = (Math.random() * 5) * reviews;
       const newData = {
         type: "product",
-        product_id: i,
+        product_id: currentSize + i,
         name: faker.commerce.productName(),
         price: faker.finance.amount(0.01, 50.00, 2),
         size: randomSize(),

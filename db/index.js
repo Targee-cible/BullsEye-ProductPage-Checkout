@@ -1,12 +1,13 @@
-const db = require('./mysql.js');
-const couch = require('../db/connection');
+// const db = require('./mysql.js');
+// const couch = require('../db/connection');
+const checkout = require('./connection.js');
 /*
   Function Definitions
 */
 
 
-const dbName = 'sdccheckout';
-const viewUrl = '_design/all_products/_view/all';
+// const dbName = 'sdccheckout';
+// const viewUrl = '_design/all_products/_view/all';
 
 // app.get('/test', (req, res) => {
 //   couch.get(dbName, viewUrl)
@@ -20,14 +21,25 @@ const viewUrl = '_design/all_products/_view/all';
 // });
 
 const getProduct = (productId) => new Promise((resolve, reject) => {
-  // db.dbconnect.query(`select * from product where id= ${productId}`)
-    // .then((product) => {
-    //   resolve(product.length ? product[0] : 'Product does not exist');
-    // })
-    // .catch((err) => {
-    //   reject(err);
-    // });
- 
+  // checkout.get(productId)
+  // checkout.view('_design/all_products', 'all', {
+  //   product_id: productId
+  // })
+  const query = {
+    selector: {
+      product_id: { $eq: productId }
+    },
+    fields: ["product_id"]
+  };
+  checkout.find(query)
+    .then((product) => {
+      // resolve(product.length ? product[0] : 'Product does not exist');
+      resolve(product);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+
 });
 
 const getQuantity = (productId, color, size, storeId) => new Promise((resolve, reject) => {
