@@ -22,10 +22,13 @@ const checkout = require('./connection.js');
 
 const getProduct = (productId) => new Promise((resolve, reject) => {
   // checkout.get(productId)
+  const t0 = new Date().getTime();
   checkout.view('all_products', 'all', {
     'key' : parseInt(productId)
   })
     .then((product) => {
+      const t1 = new Date().getTime();
+      console.log("Executed in " + (t1 - t0) + " ms");
       resolve(product.rows[0].value);
     })
     .catch((err) => {
