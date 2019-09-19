@@ -37,23 +37,6 @@ CREATE TABLE inventory (
   FOREIGN KEY (product_Id) REFERENCES product(id)
 );
 
-
--- CREATE TABLE colors (
---   red VARCHAR(20) NOT NULL,
---   blue VARCHAR(20) NOT NULL,
---   green VARCHAR(20) NOT NULL,
---   orange VARCHAR(20) NOT NULL,
---   black VARCHAR(20) NOT NULL,
---   purple VARCHAR(20) NOT NULL,
--- );
-
--- CREATE TABLE sizes (
---   small VARCHAR(20) NOT NULL,
---   medium VARCHAR(20) NOT NULL,
---   large VARCHAR(20) NOT NULL,
---   xLarge VARCHAR(20) NOT NULL,
---   xxLarge VARCHAR(20) NOT NULL,
--- )
 /*  Execute this file from the command line by typing:
  *    mysql -u root < models/schema.sql
  *  to create the database and the tables.*/

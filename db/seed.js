@@ -31,7 +31,7 @@ const seedData = function () {
   let currentSize = 0;
 
   const seedDataHelper = function () {
-    const sql = "INSERT INTO product (name, price, size, color, numOfRatings, totalNumStars) VALUES ?";
+    const sql = "INSERT INTO product (name, price, numOfRatings, totalNumStars) VALUES ?";
     let values = [
     ];
     values = [];
@@ -60,7 +60,7 @@ const seedData = function () {
   };
 
   seedDataHelper()
-  const sqlStore = "INSERT INTO stores (streetAddress, city, zipCode) VALUES ?";
+  const sqlStore = "INSERT INTO stores (streetAddress, city, state, zipCode) VALUES ?";
   const storeData = [
     ['123 Main st', 'San Jose', 'CA', 95043],
     ['23456 Broadway Ave.', 'Los Angeles', 'CA', 48909],
