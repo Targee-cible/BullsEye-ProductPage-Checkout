@@ -41,8 +41,6 @@ const seedData = function () {
       values.push([
         faker.commerce.productName(),
         faker.finance.amount(0.01, 50.00, 2),
-        randomSize(),
-        randomColor(),
         reviews,
         totalStars
       ]);
@@ -61,11 +59,12 @@ const seedData = function () {
     });
   };
 
-  seedDataHelper();
+  seedDataHelper()
   const sqlStore = "INSERT INTO stores (streetAddress, city, zipCode) VALUES ?";
   const storeData = [
-    ['123 main st', 'city1', 95043],
-    ['23456 fjdfj', 'sdd', 48909]
+    ['123 Main st', 'San Jose', 'CA', 95043],
+    ['23456 Broadway Ave.', 'Los Angeles', 'CA', 48909],
+    ['12234 MLK Blvd.', 'Austin', 'TX', 12345]
   ];
   db.connect.query(sqlStore, [storeData], function (err, result) {
     if (err) throw err;
@@ -85,127 +84,3 @@ const seedData = function () {
 
 seedData();
 
-
-
-// /*
-//   Create Reviews
-// */
-// const createReviews = (products) => new Promise((resolve, reject) => {
-//   const updatedReviews = [];
-
-//   //  For each Product
-//   for (let i = 0; i < products.length; i += 1) {
-//     const product = products[i];
-//     //  Generate random number of reviews (max 100)
-//     const numOfReviews = faker.random.number({ min: 1, max: 100 });
-//     for (let j = 0; j < numOfReviews; j += 1) {
-//       //  create n reviews
-//       //  rating: random # out of 5
-//       const rating = faker.random.number({ min: 1, max: 5 });
-//       product.reviews.push({ rating });
-//     }
-//     const query = product.save();
-//     updatedReviews.push(query);
-//   }
-
-//   Promise.all(updatedReviews)
-//     .then(() => {
-//       resolve('Reviews Created');
-//     })
-//     .catch((err) => {
-//       reject(err);
-//     });
-// });
-
-// /*
-//   Seed Location Collection
-// */
-// //  Create two locations
-// const seedLocationCollection = () => new Promise((resolve, reject) => {
-//   const createdLocations = [];
-//   for (let i = 1; i <= 2; i += 1) {
-//     const location = {
-//       storeId: i,
-//       streetAddress: faker.address.streetAddress(),
-//       city: faker.address.city(),
-//       state: faker.address.stateAbbr(),
-//       zipCode: faker.address.zipCode('#####'),
-//     };
-
-//     createdLocations.push(Locations.create(location));
-//   }
-
-//   Promise.all(createdLocations)
-//     .then((locations) => {
-//       resolve(locations);
-//     })
-//     .catch((err) => {
-//       reject(err);
-//     });
-// });
-
-// /*
-//  Seed Inventory Collection
-// */
-// const seedInventoryCollection = (products, locations) => {
-//   const createdInventory = [];
-
-//   return new Promise((resolve, reject) => {
-//     //  ForEach Product Id
-//     products.forEach((product) => {
-//       //  ForEach Size
-//       product.size.forEach((size) => {
-//         //  ForEach Color
-//         product.color.forEach((color) => {
-//           //  ForEach Location
-//           locations.forEach((storeId) => {
-//             //  Create Record with random number (max 15)
-//             const quantity = faker.random.number({ min: 0, max: 15 });
-//             const item = {
-//               productId: product.productId,
-//               size,
-//               color: color.color,
-//               storeId: storeId.storeId,
-//               quantity,
-//             };
-
-//             createdInventory.push(Inventory.create(item));
-//           });
-//         });
-//       });
-//     });
-
-//     Promise.all(createdInventory)
-//       .then((results) => {
-//         resolve(results);
-//       })
-//       .catch((err) => {
-//         reject(err);
-//       });
-//   });
-// };
-
-
-// /*
-//   Run Promise Chain to Seed DB
-//  */
-// removeExistingItems()
-//   .then(() => seedProductCollection())
-//   .then(() => seedLocationCollection())
-//   .then(() => {
-//     Products.find({})
-//       .then((products) => {
-//         createReviews(products)
-//           .then(() => {
-//             Locations.find({})
-//               .then((locations) => seedInventoryCollection(products, locations))
-//               .then(() => {
-//                 db.connection.close();
-//               });
-//           });
-//       });
-//   })
-//   .catch((err) => {
-//     // eslint-disable-next-line no-console
-//     console.log('Error: ', err);
-//   });

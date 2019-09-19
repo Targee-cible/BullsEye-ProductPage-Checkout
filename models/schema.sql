@@ -9,6 +9,7 @@ CREATE TABLE stores (
   id INT NOT NULL AUTO_INCREMENT,
   streetAddress VARCHAR(200) NOT NULL,
   city VARCHAR(200) NOT NULL,
+  state VARCHAR(200) NOT NULL,
   zipCode INT NOT NULL,
   PRIMARY KEY (id)
 );
@@ -17,8 +18,6 @@ CREATE TABLE product (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(200) NOT NULL,
   price DECIMAL(15, 2),
-  size VARCHAR(20) NOT NULL,
-  color VARCHAR(20) NOT NULL,
   numOfRatings INT NOT NULL,
   totalNumStars INT NOT NULL,
   PRIMARY KEY (id)
