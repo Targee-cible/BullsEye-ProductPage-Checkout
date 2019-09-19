@@ -22,12 +22,12 @@ const randomInventory = function () {
 }
 
 const seedData = function () {
-  const targetSize = 10;
+  const targetSize = 10000000;
   let currentSize = 0;
 
   const seedDataHelper = function () {
     let values = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10000; i++) {
       const reviews = numReviews();
       const totalStars = Math.round((Math.random() * 5) * reviews);
       const newData = {
