@@ -18,6 +18,8 @@ CREATE TABLE product (
   id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(200) NOT NULL,
   price DECIMAL(15, 2),
+  colors VARCHAR(200) NOT NULL,
+  size VARCHAR(200) NOT NULL,
   numOfRatings INT NOT NULL,
   totalNumStars INT NOT NULL,
   PRIMARY KEY (id)

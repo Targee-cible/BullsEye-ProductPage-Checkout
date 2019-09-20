@@ -1,6 +1,10 @@
+require('newrelic');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
+
+// TODO make sure data from reviews and rating is shaped right
 
 const app = express();
 const port = process.env.PORT || 3002;
