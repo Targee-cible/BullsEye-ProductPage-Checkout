@@ -35,10 +35,10 @@ const App = () => {
     helper.getProductInfo(productId)
       .then((products) => {
         const product = products.data;
-        setColors(product.color);
-        setPrice(product.price / 100);
-        setTotalReviews(product.reviews.length);
-        setReviewAverage(helper.calcAverageRating(product.reviews));
+        setColors(product.colors);
+        setPrice(product.price);
+        setTotalReviews(product.numOfRatings);
+        setReviewAverage(helper.calcAverageRating(product.numOfRatings, product.totalNumSars));
         setSizes(product.size);
       });
   }, [productId]);
