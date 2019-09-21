@@ -43,14 +43,11 @@ app.get('/api/checkout/product/:productId', (req, res) => {
 app.get('/api/checkout/quantity/:productId&:color&:size&:storeId', (req, res) => {
   // eslint-disable-next-line object-curly-newline
   const { productId, color, size, storeId } = req.params;
-  console.log(productId, color, size, storeId);
   db.getQuantity(productId, color, size, storeId)
     .then((quantity) => {
-      console.log('>>>>>>>>>>>>>>>>>>>>>>>>then' + typeof quantity)
       res.status(200).send(quantity.toString());
     })
     .catch((err) => {
-      console.log('|||||||||||||||||||||||||catch');
       res.status(500).send(err);
     });
 });
