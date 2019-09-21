@@ -35,10 +35,15 @@ const App = () => {
     helper.getProductInfo(productId)
       .then((products) => {
         const product = products.data;
+        const colors = product.colors;
+        for (let i = 0; i < colors.length; i++) {
+          colors[i] = {color: colors[i]};
+        }
+
         setColors(product.colors);
         setPrice(product.price);
         setTotalReviews(product.numOfRatings);
-        setReviewAverage(helper.calcAverageRating(product.numOfRatings, product.totalNumSars));
+        setReviewAverage(helper.calcAverageRating(product.numOfRatings, product.totalNumStars));
         setSizes(product.size);
       });
   }, [productId]);
@@ -61,7 +66,7 @@ const App = () => {
     if (zipCode !== 0) {
       helper.getLocationZipInfo(zipCode)
         .then((locations) => {
-          setStoreId(locations.data.storeId);
+          setStoreId(locations.data.id);
           setLocation(locations.data);
         });
     }

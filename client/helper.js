@@ -15,9 +15,9 @@ const helper = {
   getInventoryInfo: (productId, color, size, storeId) => axios.get(`/api/checkout/quantity/${productId}&${color}&${size}&${storeId}`),
 
   calcAverageRating: (ratings, numOfStars) => {
-    return Math.floor(ratings / numOfStars);
+    return Math.round(ratings / numOfStars);
   },
- 
+
   getShippingDate: () => {
     const shippingDate = new Date();
     shippingDate.setDate(shippingDate.getDate() + 2);

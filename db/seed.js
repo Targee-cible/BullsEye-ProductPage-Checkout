@@ -14,24 +14,19 @@ const sizes = JSON.stringify(realSizes);
 //  Create Color Array with object {name, url}
 //  URL will have default value until i am able to upload my own swatches
 const realColors = [
-  {
-    color: 'Red',
-  },
-  {
-    color: 'Blue',
-  },
-  {
-    color: 'Green',
-  },
-  {
-    color: 'Orange',
-  },
-  {
-    color: 'Black',
-  },
-  {
-    color: 'Purple',
-  },
+   'Red',
+
+
+  'Blue',
+
+     'Green',
+
+     'Orange',
+
+     'Black',
+
+     'Purple',
+
 ];
 const colors = JSON.stringify(realColors);
 const numReviews = function () {
@@ -106,6 +101,7 @@ const seedData = function () {
       for (let sizeIndex = 0; sizeIndex < realSizes.length; sizeIndex++) {
         for (let colorIndex = 0; colorIndex < realColors.length; colorIndex++) {
           const inventory = [storeId, productId, faker.random.number({ min: 0, max: 15 }), realSizes[sizeIndex], realColors[colorIndex]];
+          console.log(realColors[colorIndex]);
           storeInventory.push(inventory);
         }
       }
