@@ -14,21 +14,22 @@ const getProduct = (productId) => new Promise((resolve, reject) => {
 });
 
 const getQuantity = (productId, color, size, storeId) => new Promise((resolve, reject) => {
-  // eslint-disable-next-line object-curly-newline
-  // TODO: Implement this
-  // Inventory.find({ productId, color, size, storeId })
-  //   .then((result) => {
-  //     resolve(result.length ? result[0].quantity : 0);
-  //   })
-  //   .catch((err) => {
-  //     reject(err);
-  //   });
+  const id = parseInt(storeId);
+  const prodId = parseInt(productId);
+  db.dbconnect.query(`select * from inventory where store_Id = ${id} and product_Id = ${prodId} and color = "${color}" and size = "${size}"`)
+    .then((store) => {
+      resolve(store[0].quantity);
+    })
+    .catch((err) => {
+      reject(err);
+    });
 });
 
 const getLocation = (storeId) => new Promise((resolve, reject) => {
   db.dbconnect.query(`select * from stores where id= ${storeId}`)
     .then((store) => {
-      resolve(store.length ? store[0] : 'Store does not exist');
+
+      resolve(store[0]);
     })
     .catch((err) => {
       reject(err);
@@ -70,7 +71,6 @@ const newStore = (store) => new Promise((resolve, reject) => {
     });
 });
 const deleteProduct = (productId) => new Promise((resolve, reject) => {
-  console.log(productId);
   db.dbconnect.query(`delete from inventory where product_Id= ${productId}`)
     .then(() => db.dbconnect.query(`delete from product where id= ${productId}`))
     .then(() => {

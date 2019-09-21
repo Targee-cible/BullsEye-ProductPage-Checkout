@@ -1,6 +1,11 @@
+/* eslint-disable no-param-reassign */
+require('newrelic');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../db/index.js');
+
+// TODO make sure data from reviews and rating is shaped right
 
 const app = express();
 const port = process.env.PORT || 3002;
@@ -24,6 +29,10 @@ app.get('/api/checkout/product/:productId', (req, res) => {
   const { productId } = req.params;
   db.getProduct(productId)
     .then((product) => {
+      const parseColors = JSON.parse(product.colors);
+      product.colors = parseColors;
+      const parseSizes = JSON.parse(product.size);
+      product.size = parseSizes;
       res.status(200).json(product);
     })
     .catch((err) => {

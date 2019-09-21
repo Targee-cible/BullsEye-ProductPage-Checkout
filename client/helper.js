@@ -14,9 +14,8 @@ const helper = {
 
   getInventoryInfo: (productId, color, size, storeId) => axios.get(`/api/checkout/quantity/${productId}&${color}&${size}&${storeId}`),
 
-  calcAverageRating: (array) => {
-    const total = array.reduce((sum, item) => sum + item.rating, 0);
-    return Math.round((total / array.length) * 100) / 100;
+  calcAverageRating: (ratings, numOfStars) => {
+    return Math.round(ratings / numOfStars);
   },
 
   getShippingDate: () => {
