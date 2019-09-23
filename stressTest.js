@@ -2,10 +2,11 @@ import http from "k6/http";
 import { sleep } from "k6";
 
 export let options = {
-  vus: 100,
+  vus: 200,
   duration: "30s"
 };
 
 export default function () {
-  http.get("http://localhost:3002/api/checkout/location/2");
+  http.get("http://localhost:3002/api/checkout/product/5");
 };
+
