@@ -42,7 +42,6 @@ app.get('/api/checkout/product/:productId', (req, res) => {
   const { productId } = req.params;
   const cacheProduct = cache.get(productId);
   if (cacheProduct !== undefined) {
-    console.log('>>>>>>>>>>working');
     res.status(200).send(cacheProduct);
   } else {
     db.getProduct(productId)
@@ -63,14 +62,24 @@ app.get('/api/checkout/product/:productId', (req, res) => {
 
 app.get('/api/checkout/quantity/:productId&:color&:size&:storeId', (req, res) => {
   // eslint-disable-next-line object-curly-newline
+
   const { productId, color, size, storeId } = req.params;
-  db.getQuantity(productId, color, size, storeId)
-    .then((quantity) => {
-      res.status(200).send(quantity.toString());
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+  const cacheId = `${productId}, ${color}, ${size}, ${storeId}`;
+  const cacheProduct = cache.get(cacheId);
+  if (cacheProduct !== undefined) {
+    res.status(200).send(cacheProduct);
+  } else {
+    db.getQuantity(productId, color, size, storeId)
+      .then((quantity) => {
+        const cacheId = `${productId}, ${color}, ${size}, ${storeId}`;
+        cache.set(cacheId, quantity.toString());
+        res.status(200).send(quantity.toString());
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  }
+
 });
 
 app.get('/api/checkout/location/:storeId', (req, res) => {
