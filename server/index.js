@@ -85,25 +85,39 @@ app.get('/api/checkout/quantity/:productId&:color&:size&:storeId', (req, res) =>
 app.get('/api/checkout/location/:storeId', (req, res) => {
   // eslint-disable-next-line object-curly-newline
   const { storeId } = req.params;
-  db.getLocation(storeId)
-    .then((location) => {
-      res.status(200).send(location);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+  const cacheStore = cache.get(JSON.stringify({ store: storeId }));
+  if (cacheStore !== undefined) {
+    res.status(200).send(cacheStore);
+  } else {
+    db.getLocation(storeId)
+      .then((location) => {
+        cache.set(JSON.stringify({ store: storeId }), location);
+        res.status(200).send(location);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  }
+
 });
 
 app.get('/api/checkout/locationZip/:zipCode', (req, res) => {
   // eslint-disable-next-line object-curly-newline
   const { zipCode } = req.params;
-  db.getLocationZip(zipCode)
-    .then((location) => {
-      res.status(200).send(location);
-    })
-    .catch((err) => {
-      res.status(500).send(err);
-    });
+  const cacheZip = cache.get(JSON.stringify({ cacheZipCode: zipCode }));
+  if (cacheZip !== undefined) {
+    res.status(200).send(cacheZip);
+  } else {
+    db.getLocationZip(zipCode)
+      .then((location) => {
+        cache.set(JSON.stringify({ cacheZipCode: zipCode }), location);
+        res.status(200).send(location);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+      });
+  }
+
 });
 
 app.delete('/api/checkout/location/:storeId', (req, res) => {
