@@ -28,3 +28,5 @@ public/app.bundle.js
 # newrelic
 newrelic.js
 newrelic_agent.log
+
+db/mysql.js
