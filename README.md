@@ -1,6 +1,6 @@
 # Bullseye - Item Checkout Service
 
-> Bullseye is a recreation of the Target Item Product Page.  This service renders the checkout component on the Bullseye site.  The checkout component contains the following information for the product:
+> Bullseye is an e-commerce application.  This service renders the checkout component on the Bullseye site.  The checkout component contains the following information for the product:
 >  - Price
 >  - Overall Review Rating
 >  - Total Number of Reviews
