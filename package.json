@@ -56,7 +56,7 @@
     "regenerator-runtime": "^0.13.3",
     "supertest": "^4.0.2",
     "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7"
+    "webpack-cli": "^3.3.12"
   },
   "repository": {
     "type": "git",
